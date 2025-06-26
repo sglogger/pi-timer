@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>Touch-Timer</title>
+
+<style>
+  /* ------------ Grid-Layout ------------ */
+  html,body{
+    margin:0;
+    height:100%;
+    display:grid;
+    grid-template-columns: 260px 16px 1fr;   /* links fix 260 px, 16 px Lücke, rechts flexibel */
+    font-family:sans-serif;
+  }
+
+  /* linke Spalte */
+  #left{
+    background:#f3f3f3;
+    border-radius:20px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+    margin:1rem;
+    padding:1rem 0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  #left button{
+    width:80%;
+    padding:1rem 0;
+    font-size:1.8rem;
+    border:0;
+    border-radius:12px;
+    background:#d0d0d0;
+    margin-bottom:1rem;
+    transition:background .2s;
+  }
+  #left button:last-child{margin-bottom:0;}
+  #left button:hover,
+  #left button:active{background:#bcbcbc;}
+
+  /* rechte Spalte – OHNE overflow:hidden! */
+  #right{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  }
+  #display{
+    font-size:clamp(4rem,12vw,8rem);
+    font-weight:600;
+    margin-bottom:2rem;
+    white-space:nowrap;
+  }
+  #stop{
+    background:#c00;
+    color:#fff;
+    font-size:2rem;
+    padding:1rem 3rem;
+    border:0;
+    border-radius:12px;
+    transition:opacity .2s;
+  }
+  #stop:hover,
+  #stop:active{opacity:.85;}
+</style>
+</head>
+
+<body>
+  <div id="left">
+    {% for t in timers %}
+      <button class="start" data-min="{{t}}">{{t}} min</button>
+    {% endfor %}
+  </div>
+
+  <!-- leere Grid-Spalte = Abstand -->
+  <div></div>
+
+  <div id="right">
+    <div id="display">00:00</div>
+    <button id="stop">STOP</button>
+  </div>
+
+<script>
+let endMs=null;
+const display=document.getElementById("display");
+
+function tick(){
+  if(!endMs) return;
+  const diff=Math.round((endMs-Date.now())/1000);
+  const sign=diff<0?"-":"";
+  const abs=Math.abs(diff);
+  const m=String(Math.floor(abs/60)).padStart(2,"0");
+  const s=String(abs%60).padStart(2,"0");
+  display.textContent=`${sign}${m}:${s}`;
+}
+setInterval(tick,250);
+
+document.querySelectorAll(".start").forEach(btn=>{
+  btn.onclick=()=>fetch(`/start/${btn.dataset.min}`)
+                 .then(r=>r.json())
+                 .then(d=>endMs=d.end);
+});
+document.getElementById("stop").onclick=()=>fetch("/stop").then(()=>{
+  endMs=null;
+  display.textContent="00:00";
+});
+</script>
+</body>
+</html>
+
