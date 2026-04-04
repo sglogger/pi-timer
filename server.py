@@ -94,6 +94,7 @@ def index():
 
 @app.get("/start/<int:minutes>")
 def start(minutes):
+    cancel_all()
     schedule(minutes)
     return jsonify(end=end_timestamp_ms)
 
