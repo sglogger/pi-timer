@@ -1,18 +1,16 @@
 # pi-timer
-PI Timer
-
-
+PI Timer, small project for SwiNOG:
 Goal is to remotely control a timer for conferences.
 
 
-== Installation of Headend ==
+## Installation of Headend
 The headend (Raspberry pi zero e.g. witch 7" waveshare touchscreen 'Zero-DISP-7A') is installed with raspberry pi desktop.
 * https://www.waveshare.com/zero-disp-7a.htm
 * https://www.waveshare.com/wiki/Zero-DISP-7A
 
 
 
-=== Base System on Raspberry ===
+### Base System on Raspberry
 Download Raspberry PI Manager (https://www.raspberrypi.com/software/)
 
 During Installation choose:
@@ -28,7 +26,7 @@ During Installation choose:
     - Raspberry PI connect: deactivate
 - Save/Write
 
-=== Changes for Waveshare Display ===
+### Changes for Waveshare Display
 From the Waveshare Wiki (https://www.waveshare.com/wiki/Zero-DISP-7A):
 
 After programming, open the config.txt file in the root directory of the TF card and enter the following codes at the end of config.txt. Then, save and safely eject the TF card.
@@ -38,15 +36,15 @@ After programming, open the config.txt file in the root directory of the TF card
     hdmi_mode=87 
     hdmi_cvt 1024 600 60 6 0 0 0
 
-== Raspberry Configuration / Further Setup ==
+## Raspberry Configuration / Further Setup 
 
-=== Enable Autologin ===
+### Enable Autologin 
     sudo raspi-config
 
 Select: 1 System Options > S6 Autologin
 
 
-== Installation OS & Tools ==
+## Installation OS & Tools 
 1. Update System:
     sudo apt update
     sudo apt upgrade -y 
@@ -114,9 +112,9 @@ exec falkon -e -o -f http://localhost:8000/
     sudo systemctl disable --now systemd-journald
     sudo systemctl disable --now rsyslog
 
-== Installation Luxafer & Server ==
+## Installation Luxafer & Server 
 
-=== Clone Github project ===
+### Clone Github project
     git clone https://github.com/sglogger/pi-timer.git
 
 then:
