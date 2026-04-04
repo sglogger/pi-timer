@@ -1,4 +1,4 @@
-timers: [45, 25, 15, 10, 5, 1]
+timers: [25, 20, 15, 10, 5, 1]
 
 commands:
   start:      "luxafor-linux.py color -x '#00FF00'"
