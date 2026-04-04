@@ -41,7 +41,7 @@ hdmi_cvt 1024 600 60 6 0 0 0
 ## Raspberry Configuration / Further Setup 
 
 ### Enable Autologin 
-    `sudo raspi-config`
+`sudo raspi-config`
 
 Select: 1 System Options > S6 Autologin
 
