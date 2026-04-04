@@ -60,7 +60,7 @@ Select: 1 System Options > S6 Autologin
 4. Install lightweight Browser:
     sudo apt install falkon -y
 
-````
+```
 steven@pi-timer:~$ falkon --help
 Usage: falkon [options] [URL...]
 QtWebEngine based browser
