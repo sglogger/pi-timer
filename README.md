@@ -117,4 +117,8 @@ exec falkon -e -o -f http://localhost:8000/
 == Installation Luxafer & Server ==
 
 === Clone Github project ===
+    git clone https://github.com/sglogger/pi-timer.git
 
+then:
+    cd pi-timer
+    ./install.sh
