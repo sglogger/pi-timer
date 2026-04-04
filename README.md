@@ -59,7 +59,7 @@ Select: 1 System Options > S6 Autologin
     `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox`
 
 3. Install other tools:
-    `sudo apt install git -y`
+    `sudo apt install git xdotool -y`
 
 4. Install lightweight Browser:
     `sudo apt install falkon -y`
@@ -126,5 +126,6 @@ exec falkon -e -o -f http://localhost:8000/
 then:
 ```
     cd pi-timer
+    chmod 755 install.sh
     ./install.sh
 ```

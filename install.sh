@@ -1,7 +1,7 @@
 #!/bin/sh
+cd ~/pi-timer
 
 # allow usb mode for user
-
 echo "Preparing USB Subsystem..."
 echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="04d8", ATTR{idProduct}=="f372", MODE="0666"' > /tmp/99-luxafor.rules
 sudo mv /tmp/99-luxafor.rules /etc/udev/rules.d/99-luxafor.rules
