@@ -31,17 +31,17 @@ From the Waveshare Wiki (https://www.waveshare.com/wiki/Zero-DISP-7A):
 
 After programming, open the config.txt file in the root directory of the TF card and enter the following codes at the end of config.txt. Then, save and safely eject the TF card.
 ```
-    hdmi_force_hotplug=1 
-    config_hdmi_boost=10
-    hdmi_group=2 
-    hdmi_mode=87 
-    hdmi_cvt 1024 600 60 6 0 0 0
+hdmi_force_hotplug=1 
+config_hdmi_boost=10
+hdmi_group=2 
+hdmi_mode=87 
+hdmi_cvt 1024 600 60 6 0 0 0
 ```
 
 ## Raspberry Configuration / Further Setup 
 
 ### Enable Autologin 
-    sudo raspi-config
+    `sudo raspi-config`
 
 Select: 1 System Options > S6 Autologin
 
@@ -49,10 +49,10 @@ Select: 1 System Options > S6 Autologin
 ## Installation OS & Tools 
 1. Update System:
 ```
-    sudo apt update
-    sudo apt upgrade -y 
-    sudo apt full-upgrade -y
-    sudo reboot
+sudo apt update
+sudo apt upgrade -y 
+sudo apt full-upgrade -y
+sudo reboot
 ```
 
 2. Install X-Server:
