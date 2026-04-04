@@ -1,0 +1,8 @@
+if [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ]
+then
+  cd pi-timer
+  source .venv/bin/activate
+  python server.py &
+  sleep 3 
+  startx -- -nocursor
+fi

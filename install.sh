@@ -12,3 +12,8 @@ echo "Python magic..."
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+
+
+echo "installing xinitrc stuff..."
+cp installer/xinitrc ~/.xinitrc
+cp installer/bash_profile ~/.bash_profile
