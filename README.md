@@ -50,19 +50,24 @@ Select: 1 System Options > S6 Autologin
 1. Update System:
 ```
 sudo apt update
-sudo apt upgrade -y 
 sudo apt full-upgrade -y
 sudo reboot
 ```
 
 2. Install X-Server:
-    `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox`
+```
+sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox
+```
 
 3. Install other tools:
-    `sudo apt install git xdotool -y`
+```
+sudo apt install git xdotool -y
+```
 
 4. Install lightweight Browser:
-    `sudo apt install falkon -y`
+```
+sudo apt install falkon -y
+```
 
 ```
 steven@pi-timer:~$ falkon --help
@@ -94,7 +99,9 @@ Arguments:
 Note: modori is not supported anymore, chromium too big, ...
 
 5. Configure X Server
-    `sudo vi ~/.xinitrc`
+```
+sudo vi ~/.xinitrc
+```
 
 add following at the bottom of the file:
 ``` 
@@ -108,20 +115,22 @@ exec falkon -e -o -f http://localhost:8000/
 
 6. Disable unnecessary services & Disable Logging to Reduce Memory Usage:
 ```
-    sudo systemctl disable --now avahi-daemon.service  # Disable mDNS (not needed)
-    sudo systemctl disable --now ModemManager.service  # Disable modem manager
-    sudo systemctl disable --now triggerhappy.service  # Disable hotkey daemon
-    sudo systemctl disable --now systemd-timesyncd.service  # Disable time sync (use cron instead)
+sudo systemctl disable --now avahi-daemon.service  # Disable mDNS (not needed)
+sudo systemctl disable --now ModemManager.service  # Disable modem manager
+sudo systemctl disable --now triggerhappy.service  # Disable hotkey daemon
+sudo systemctl disable --now systemd-timesyncd.service  # Disable time sync (use cron instead)
  
-    sudo systemctl disable hciuart
-    sudo systemctl disable --now systemd-journald
-    sudo systemctl disable --now rsyslog
+sudo systemctl disable hciuart
+sudo systemctl disable --now systemd-journald
+sudo systemctl disable --now rsyslog
 ```
 
 ## Installation Luxafer & Server 
 
 ### Clone Github project
-    `git clone https://github.com/sglogger/pi-timer.git`
+```
+git clone https://github.com/sglogger/pi-timer.git
+```
 
 then:
 ```
