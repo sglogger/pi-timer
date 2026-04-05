@@ -100,7 +100,7 @@ Note: modori is not supported anymore, chromium too big, ...
 
 5. Configure X Server
 ```
-sudo vi ~/.xinitrc
+sudo vi /etc/xdg/openbox/autostart
 ```
 
 add following at the bottom of the file:
@@ -123,6 +123,13 @@ sudo systemctl disable --now systemd-timesyncd.service  # Disable time sync (use
 sudo systemctl disable hciuart
 sudo systemctl disable --now systemd-journald
 sudo systemctl disable --now rsyslog
+```
+
+7. Activate NTP Time Sync
+```
+sudo apt install ntp
+sudo systemctl enable ntp
+sudo timedatectl set-ntp 1
 ```
 
 ## Installation Luxafer & Server 

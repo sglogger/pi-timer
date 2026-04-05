@@ -15,5 +15,5 @@ pip install -r requirements.txt
 
 
 echo "installing xinitrc stuff..."
-cp installer/xinitrc ~/.xinitrc
+cp installer/xinitrc /etc/xdg/openbox/autostart
 cp installer/bash_profile ~/.bash_profile

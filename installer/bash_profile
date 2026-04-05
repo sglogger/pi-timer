@@ -1,5 +1,6 @@
 if [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ]
 then
+  sudo timedatectl set-ntp 1
   cd pi-timer
   source .venv/bin/activate
   python server.py &
