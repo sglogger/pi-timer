@@ -95,7 +95,19 @@ html,body{
 #box-green  { background:#00FF00; }
 #box-yellow { background:#FFFF00; }
 #box-orange { background:#FF7F00; }
-#box-red    { background:#FF0000;    }
+#box-red    { background:#FF0000; }
+#blinkbox-red    { background:#ff6666; }
+
+@keyframes softBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.15; }
+}
+
+#blinkbox-red.active {
+  animation: softBlink 1s ease-in-out infinite;
+  opacity: 1; /* überschreibt das Standard-0.45 */
+}
+
 </style>
 </head>
 <body>
@@ -132,6 +144,10 @@ html,body{
     <div class="status-box" id="box-red"></div>
     <div class="status-label">Time over</div>
   </div>
+  <div class="status-item">
+    <div class="status-box" id="blinkbox-red"></div>
+    <div class="status-label">>30sec Over Time</div>
+  </div>
 </div>
 
 <script>
@@ -142,6 +158,7 @@ const boxes = {
   yellow: document.getElementById("box-yellow"),
   orange: document.getElementById("box-orange"),
   red:    document.getElementById("box-red"),
+  blinkRed:    document.getElementById("blinkbox-red"),
 };
 
 function setActiveBox(name) {
@@ -160,10 +177,11 @@ function tick() {
   display.textContent = `${sign}${m}:${s}`;
 
   // Update status indicator
-  if (diff < 0)       setActiveBox("red");
-  else if (diff < 60) setActiveBox("orange");
-  else if (diff < 300)setActiveBox("yellow");
-  else                setActiveBox("green");
+  if      (diff < -30)  setActiveBox("blinkRed");   // ← neu, vor "red"
+  else if (diff < 0)    setActiveBox("red");
+  else if (diff < 60)   setActiveBox("orange");
+  else if (diff < 300)  setActiveBox("yellow");
+  else                  setActiveBox("green");
 }
 
 setInterval(tick, 250);
