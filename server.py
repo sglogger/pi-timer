@@ -68,7 +68,7 @@ def schedule(mins: int):
         (mins - 5, CONFIG["commands"].get("t_minus_5")),
         (mins - 1, CONFIG["commands"].get("t_minus_1")),
         (mins     , CONFIG["commands"].get("zero")),
-        (mins + 1 , CONFIG["commands"].get("overdue")),
+        (mins + 0.5 , CONFIG["commands"].get("overdue")),
     ]
 
     for rel_min, cmd in plan:

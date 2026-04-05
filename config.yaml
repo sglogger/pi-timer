@@ -1,10 +1,10 @@
-timers: [25, 20, 15, 10, 5, 1]
+timers: [30, 25, 20, 15, 10, 5, 1]
 
 commands:
   start:      "luxafor-linux.py color -x '#00FF00'"
   t_minus_5:  "luxafor-linux.py color -x '#FFFF00'"
   t_minus_1:  "luxafor-linux.py color -x '#FF7F00'"
   zero:       "luxafor-linux.py color -x '#FF0000'"
-  overdue:    "luxafor-linux.py strobe -x '#FF0000' -s 20 -t 20"
+  overdue:    "luxafor-linux.py strobe -x '#FF0000' -s 15 -t 30"
   stop:       "luxafor-linux.py color -x '#000000'"
 

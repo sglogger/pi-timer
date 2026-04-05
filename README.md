@@ -9,7 +9,6 @@ The headend (Raspberry pi zero e.g. witch 7" waveshare touchscreen 'Zero-DISP-7A
 * https://www.waveshare.com/wiki/Zero-DISP-7A
 
 
-
 ### Base System on Raspberry
 Download Raspberry PI Manager (https://www.raspberrypi.com/software/)
 
@@ -98,22 +97,7 @@ Arguments:
 
 Note: modori is not supported anymore, chromium too big, ...
 
-5. Configure X Server
-```
-sudo vi /etc/xdg/openbox/autostart
-```
-
-add following at the bottom of the file:
-``` 
-xset s off
-xset -dpms
-xset s noblank
-exec falkon -e -o -f http://localhost:8000/
-```
-
-
-
-6. Disable unnecessary services & Disable Logging to Reduce Memory Usage:
+5. Disable unnecessary services & Disable Logging to Reduce Memory Usage:
 ```
 sudo systemctl disable --now avahi-daemon.service  # Disable mDNS (not needed)
 sudo systemctl disable --now ModemManager.service  # Disable modem manager
@@ -125,7 +109,7 @@ sudo systemctl disable --now systemd-journald
 sudo systemctl disable --now rsyslog
 ```
 
-7. Activate NTP Time Sync
+6. Activate NTP Time Sync
 ```
 sudo apt install ntp
 sudo systemctl enable ntp
