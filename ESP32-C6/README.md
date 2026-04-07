@@ -22,3 +22,8 @@ Use the `macos-debug.py` script to debug the ESP32.
 
 ## Security
 Yes, I know: the UUID's are hardcoded. But there is not really security needed here for this project :)
+
+## Useful References
+* https://www.waveshare.com/wiki/ESP32-C6-LCD-1.47
+* https://micropython.org/download/ESP32_GENERIC_C6/
+* https://github.com/russhughes/st7789py_mpy
