@@ -26,8 +26,7 @@ async def main():
     print(f"Gefunden: {device.name} ({device.address})")
     
     async with BleakClient(device) as client:
-        print("Verbunden! Sende Test START:10...")
-        #await client.write_gatt_char(CHARACTERISTIC_UUID, b"START:10", response=True)
+
         
         while True:
             cmd = input("\nSekunden oder STOP: ").strip().upper()

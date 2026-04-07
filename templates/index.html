@@ -150,7 +150,12 @@ html,body{
   </div>
 </div>
 
+<div id="bt-info" style="position:fixed; bottom:10px; right:10px; font-size:0.8rem; color:#888;">
+    Bluetooth: <span id="bt-device">Suche...</span>
+</div>
+
 <script>
+ 
 let endMs = null;
 const display = document.getElementById("display");
 const boxes = {
@@ -192,11 +197,29 @@ document.querySelectorAll(".start").forEach(btn => {
     .then(d => { endMs = d.end; });
 });
 
+
 document.getElementById("stop").onclick = () => fetch("/stop").then(() => {
   endMs = null;
   display.textContent = "00:00";
   setActiveBox(null); // alle aus
 });
+
+// NEU: Bluetooth Status Abfrage
+function updateBtStatus() {
+  fetch('/bt_status')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("bt-device").textContent = data.connected_with;
+    })
+    .catch(() => {
+      document.getElementById("bt-device").textContent = "Server Offline";
+    });
+}
+
+// Alle 5 Sekunden prüfen
+setInterval(updateBtStatus, 5000);
+updateBtStatus();
+
 </script>
 </body>
 </html>

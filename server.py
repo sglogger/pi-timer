@@ -2,8 +2,12 @@
 import sys, pathlib, shlex, subprocess, time, datetime as dt, threading, yaml
 from flask import Flask, render_template, jsonify
 
+# Bluetooth
+import asyncio
+from bleak import BleakScanner, BleakClient
 
-
+SERVICE_UUID = "48593a1c-333e-469b-8664-d1303867d341"
+CHARACTERISTIC_UUID = "9f3c7b34-8c34-4503-b91d-06900f917531"
 
 app = Flask(__name__, template_folder="templates")
 
@@ -20,6 +24,64 @@ PYTHON   = sys.executable                         # Interpreter der aktiven venv
 # Globale State-Variablen
 active_jobs: list[threading.Timer] = []      # geplante Aktionen
 end_timestamp_ms: int | None = None          # liefert API dem Frontend
+
+# Globale State-Variablen
+active_jobs = []
+end_timestamp_ms = None
+
+# --- Bluetooth Logik ---
+class BluetoothManager(threading.Thread):
+    def __init__(self):
+        super().__init__(daemon=True)
+        self.loop = asyncio.new_event_loop()
+        self.device_name = "Nicht verbunden"
+        self.client = None
+        self.command_queue = asyncio.Queue()
+
+    def run(self):
+        asyncio.set_event_loop(self.loop)
+        self.loop.run_until_complete(self.main_loop())
+
+    async def main_loop(self):
+        while True:
+            try:
+                if not self.client or not self.client.is_connected:
+                    self.device_name = "Suche..."
+                    
+                    def filter_handler(device, ad):
+                        name = device.name or ""
+                        has_uuid = SERVICE_UUID.lower() in [s.lower() for s in ad.service_uuids]
+                        return "SWINOG" in name.upper() or has_uuid
+
+                    device = await BleakScanner.find_device_by_filter(filter_handler, timeout=5.0)
+                    
+                    if device:
+                        self.client = BleakClient(device)
+                        await self.client.connect()
+                        self.device_name = device.name or device.address
+                        print(f"BT verbunden: {self.device_name}")
+                    else:
+                        await asyncio.sleep(5)
+                        continue
+
+                # Warte auf Befehle aus der Queue
+                cmd = await self.command_queue.get()
+                if self.client and self.client.is_connected:
+                    await self.client.write_gatt_char(CHARACTERISTIC_UUID, cmd.encode(), response=True)
+                    print(f"BT gesendet: {cmd}")
+                
+            except Exception as e:
+                print(f"BT Fehler: {e}")
+                self.device_name = "Fehler / Suche..."
+                self.client = None
+                await asyncio.sleep(2)
+
+    def send_cmd(self, cmd):
+        self.loop.call_soon_threadsafe(self.command_queue.put_nowait, cmd)
+
+# Manager starten
+bt_manager = BluetoothManager()
+bt_manager.start()
 
 # -------------------------
 # Hilfsfunktionen
@@ -63,6 +125,9 @@ def schedule(mins: int):
     # 1) sofort grün
     run(CONFIG["commands"]["start"])
 
+    # NEU: Sende via Bluetooth (Sekunden)
+    bt_manager.send_cmd(f"START:{mins * 60}")
+
     now = time.monotonic()
     plan = [
         (mins - 5, CONFIG["commands"].get("t_minus_5")),
@@ -102,7 +167,12 @@ def start(minutes):
 def stop():
     cancel_all()
     run(CONFIG["commands"]["stop"])
+    bt_manager.send_cmd("STOP") # NEU: BT Stop
     return jsonify(status="stopped")
+
+@app.get("/bt_status")
+def bt_status():
+    return jsonify(connected_with=bt_manager.device_name)
 
 # -------------------------
 if __name__ == "__main__":

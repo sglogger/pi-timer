@@ -1,3 +1,4 @@
 pyusb
 pyyaml
 flask
+bleak

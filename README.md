@@ -116,6 +116,13 @@ sudo systemctl enable ntp
 sudo timedatectl set-ntp 1
 ```
 
+7. Activate Bluetooth & enable user
+```
+sudo systemctl enable --now bluetooth
+sudo usermod -aG bluetooth $USER
+```
+to verify: `hciconfig -a` --> should be UP RUNNING
+
 ## Installation Luxafer & Server 
 
 ### Clone Github project
