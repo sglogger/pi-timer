@@ -1,2 +1,3 @@
 # Virtuelles Environment ignorieren
 .venv/
+.DS_Store
