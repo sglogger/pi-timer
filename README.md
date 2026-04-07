@@ -136,3 +136,12 @@ then:
     chmod 755 install.sh
     ./install.sh
 ```
+
+=== Thanks to ===
+Thanks to the Github project from Vince Mitchell to controll the luxafor:
+* https://github.com/vmitchell85/luxafor-python
+
+
+== Hardware ==
+![Front View](/images/front.jpg "Front View")
+![Back View](/images/back.jpg "Back View")

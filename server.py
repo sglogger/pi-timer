@@ -122,11 +122,12 @@ def schedule(mins: int):
     global end_timestamp_ms, active_jobs
     cancel_all()
 
+    # NEU: Sende via Bluetooth (Sekunden)
+    bt_manager.send_cmd(f"START:{mins * 60}")
+    
     # 1) sofort grün
     run(CONFIG["commands"]["start"])
 
-    # NEU: Sende via Bluetooth (Sekunden)
-    bt_manager.send_cmd(f"START:{mins * 60}")
 
     now = time.monotonic()
     plan = [

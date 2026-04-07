@@ -17,3 +17,7 @@ pip install -r requirements.txt
 echo "installing xinitrc stuff..."
 cp installer/xinitrc /etc/xdg/openbox/autostart
 cp installer/bash_profile ~/.bash_profile
+
+echo "verifying bluetooth settings..."
+sudo systemctl enable --now bluetooth
+sudo usermod -aG bluetooth $USER
